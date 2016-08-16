@@ -166,7 +166,7 @@ public class MoveScript : PlayerScriptBase {
                     moveVec -= moveVec.normalized * moveVecInMovingDir;
                 }
             }
-            //add some downwards force to grip walls better only happens when pressing forwards
+            //add some downwards force to grip walls better. only happens when pressing forwards
             if (backwardsPressed < 0)
             {
                 moveVec -= new Vector2(transform.up.x, transform.up.y) * suctionforce;
@@ -174,27 +174,17 @@ public class MoveScript : PlayerScriptBase {
             }
             else if(backwardsPressed == 0)
             {
-                //unreverse controls when hitting backwords or not moving as well
+                //unreverse controls when hitting backwards or not moving as well
                 //print("went backwords");
                 reversedControlls = false;
             }
-            //myRigidBody.angularVelocity -= myRigidBody.angularVelocity * 0.75f;
-            //print(backwardsPressed);
+
             myRigidBody.velocity += moveVec;
-            //body.velocity += moveVec;
 
 
-			//CapMaxSpeed (myRigidBody);
-			//CapMaxSpeed (body);
 		//in the air move reletive to world space
 		} else {
-            //unreverse controls in the air, if they got reversed on the ground
-            //timeToReconsiderGroundCheck -= Time.deltaTime;
-            //if (timeToReconsiderGroundCheck < 0)
-            //{
-            //print("off ground too long");
 
-            //}
             Vector2 moveVec = Vector2.zero;
             Vector3 rightAbs = new Vector3(Mathf.Abs(right2d.x), Mathf.Abs(right2d.y), 0);
             Vector3 upAbs = new Vector3(Mathf.Abs(transform.up.x), Mathf.Abs(transform.up.y), 0);
@@ -224,17 +214,6 @@ public class MoveScript : PlayerScriptBase {
             }
             
             myRigidBody.velocity += moveVec;
-
-            //pressing back when going a direction tries to stablise the fall
-            
-
-            //poorly written code to make robot backflip while jumping and pressing forward or stablize when pressing backwards
-
-            //print(backwardsPressed);
-            //backwardsPressed = Mathf.Clamp(backwardsPressed, -1, 1);
-            //float maxSpin = 200;
-            //float spinSpeed = 10;
-            //if (backwardsPressed > 0)
 
             //airbreak
             if (Input.GetAxis("B" + PlayerNumber) != 0)
@@ -281,7 +260,6 @@ public class MoveScript : PlayerScriptBase {
                     myRigidBody.angularVelocity -= myRigidBody.angularVelocity * 0.50f;
                     if (myRigidBody.angularVelocity < 1)
                     {
-                        //print("did this");
                         myRigidBody.angularVelocity = 0;
                         seekDesieredRot = false;
                     }
@@ -305,36 +283,15 @@ public class MoveScript : PlayerScriptBase {
 
 		//you can only jump if at least one tread is on the ground
 		if(jumpButtons != 0 && !jumpAxisInUse && myGroundChecker.passedGroundChecks > 0){
-            /*
-            if (xMovement > 0)
-            {
-                myRigidBody.angularVelocity += 500;
-            }
-            else if (xMovement < 0)
-            {
-                myRigidBody.angularVelocity -= 500;
-            }
-            */
+
             jumpAxisInUse = true;
 			if (jumpsLeft > 0) {
 				jumpsLeft--;
-				//body.AddForce (Vector2.up * jumpForce);
 				myRigidBody.AddForce(transform.up * jumpForce);
-                /*
-                //add a bit of torq to make flips easier
-                if (xMovement < 0)
-                {
-                    myRigidBody.AddTorque(-5);
-                }
-                else if (xMovement < 0)
-                {
-                    myRigidBody.AddTorque(5);
-                }
-                */
 			}
 		}
 		if (jumpButtons == 0) {
-			//half upword vertical speed
+			//half upward vertical speed
 			if (jumpAxisInUse) {
 				float upwardsSpeed = Vector2.Dot(body.velocity, Vector2.up);
 				if (upwardsSpeed > 0) {
@@ -343,14 +300,12 @@ public class MoveScript : PlayerScriptBase {
 			}
 			jumpAxisInUse = false;
 		}
-        //print(myGroundChecker.passedGroundChecksFurtherDown);
         if (myGroundChecker.passedGroundChecks > 0)
         {
             touchedGound = true;
         }
         else if (myGroundChecker.passedGroundChecksFurtherDown == 0)
         {
-            //print("off ground");
             reversedControlls = false;
             touchedGound = false;
         }
@@ -373,11 +328,11 @@ public class MoveScript : PlayerScriptBase {
         print(collisionDist);
         if (Mathf.Abs(collisionDist) > 0.1f && !amIdead.dead)
         {
-            
-            float launchforce = 40000;
+            print(Mathf.Abs(collisionDist));
+            float launchforce = 5000;
             if (myGroundChecker.passedGroundChecks > 1)
             {
-                launchforce = 70000;
+                launchforce = 8750;
             }
             myRigidBody.AddForceAtPosition((posIn2d - averageContactPoint) * launchforce, averageContactPoint);
         }

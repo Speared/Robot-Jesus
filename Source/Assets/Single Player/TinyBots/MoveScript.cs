@@ -221,6 +221,7 @@ public class MoveScript : PlayerScriptBase {
                 myRigidBody.angularVelocity -= myRigidBody.angularVelocity * 0.50f;
             }
 
+            //rotate in the air based on arrow keys
             if (Input.GetAxis("Horizontal"+rightSuffix+ PlayerNumber) != 0 || Input.GetAxis("Vertical"+rightSuffix + PlayerNumber) != 0)
             {
                 desieredRot = new Vector2(Input.GetAxis("Horizontal"+rightSuffix + PlayerNumber) * -1, Input.GetAxis("Vertical"+rightSuffix + PlayerNumber) * -1);
@@ -246,11 +247,11 @@ public class MoveScript : PlayerScriptBase {
                         Vector3 cross = Vector3.Cross(desieredRot, transform.up);
                         if (cross.z < 0)
                         {
-                            myRigidBody.angularVelocity += 50f;
+                            myRigidBody.angularVelocity += 500f;
                         }
                         else
                         {
-                            myRigidBody.angularVelocity -= 50f;
+                            myRigidBody.angularVelocity -= 500f;
                         }
                     }
                 }

@@ -137,8 +137,8 @@ public class MoveScript : PlayerScriptBase {
 
             if (Vector3.Dot(transform.right, Vector3.right) < -0.9f && !touchedGound)
             {
-                //print("reversed");
-                //print(Vector3.Dot(transform.right, Vector3.right));
+                print("reversed");
+                print(Vector3.Dot(transform.right, Vector3.right));
                 reversedControlls = true;
             }
             //timeToReconsiderGroundCheck = 0.15f;

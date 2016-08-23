@@ -9,7 +9,7 @@ public class BotSpawner : MonoBehaviour {
     public static GameObject currentBot;
     public DebugFollowPlayer changeMeSomeday;
     public delegate void RobotWasSpawned();
-    //public event RobotWasSpawned ISpawned;
+    public event RobotWasSpawned ISpawned;
 
 
 	// Use this for initialization
@@ -24,7 +24,7 @@ public class BotSpawner : MonoBehaviour {
             GameObject newBot = Instantiate(bot, transform.position, transform.rotation) as GameObject;
             changeMeSomeday.followme = newBot.transform.GetChild(0).gameObject;
             currentBot = newBot;
-            //ISpawned();
+            ISpawned();
             
         }
 	}

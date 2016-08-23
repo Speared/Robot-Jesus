@@ -22,7 +22,6 @@ public class BumpBodyOnHit : MonoBehaviour
     {
         if (!amIDead.dead)
         {
-            print("did this");
             Vector2 force = new Vector2(transform.position.x, transform.position.y) - coll.contacts[0].point;
             myRigidbody.AddForceAtPosition(force * 50, coll.contacts[0].point);
         }
